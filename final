@@ -1,0 +1,110 @@
+1번
+def solution(my_string, target): #함수의 이름은 solution이고 입력으로 2개의 값을 받는다
+    answer = 0 #결과를 저장하기 위해서 변수를 초기화
+    if target in my_string: #target이 my_string의 부분 문자열인지 확인
+        answer = 1 #answer=1로 설정
+    return answer #결과를 리턴
+
+#사용자에게 my_string, target을 입력받는다
+my_string = input("enter my_string:")
+target = input("enter target:")
+
+#solution 함수를 호출하고 결과를 출력한다
+result = solution(my_string, target)
+print(result)
+
+2번
+def solution(letter): #문자열 letter 가 매개변수로 주어지는 solution 함수를 만들었다.
+    morse = {
+        '.-':'a','-...':'b','-.-.':'c','-..':'d','.':'e','..-.':'f',
+        '--.':'g','....':'h','..':'i','.---':'j','-.-':'k','.-..':'l',
+        '--':'m','-.':'n','---':'o','.--.':'p','--.-':'q','.-.':'r',
+        '...':'s','-':'t','..-':'u','...-':'v','.--':'w','-..-':'x',
+        '-.--':'y','--..':'z'
+    } #letter의 영어 소문자와 대응되는 모스 부호를 적어두었다.
+
+    morse_words = letter.split(' ') #split함수를 이용해서 모스 부호를 띄어쓰기를 기준으로 인식하도록 했다.
+    
+    answer = ''.join(morse.get(part, '') for part in morse_words)
+    #for part in morse_words는 morse_words에 있는 각각의 원소에 대해서 반복한다.
+    #morse.get(part, '')는 맨 위 morse에서 모스 부호 문자열인 part라는 키와 대응되는 값을 찾는다. 만약 part가 없으면 ''을 리턴한다.
+    #''.join(나머지)는 앞에서 얻은 값들을 빈 문자열로 연결해서 하나의 문자열로 만든다.
+    
+    return answer
+
+letter = ".--- ..- ... - / -.- . . .--. / --. --- .. -. --."
+result = solution(letter)
+print(result)
+
+#letter에 justkeepgoing이라는 인상깊은말을 적었다. solution함수를 호출하고 결과값을 출력하도록 했다.
+
+3번
+def solution(age): #age가 매개변수로 주어지는 solution 함수를 만들었다.
+    
+    alphabet_number = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9} #알파벳 소문자와 숫자를 a=0부터j=9까지 대응시킨다
+
+    total_age = 0 #total_age의 값을 0으로 초기화시킨다
+
+    for char in age: #age에 들어있는 문자가 없을떄까지 반복한다
+        
+        if char in alphabet_number: #현재 문자가 alphabet_number에 들어있는 지 확인한다
+            
+            total_age = total_age * 10 + alphabet_number[char]
+    #나이를 구하기 위해서 지금까지 구한 나이에 10을 곱한뒤 현재 문자와 대응되는 숫자를 더한다
+    return total_age
+
+#행성의 이름을 hiabc라고 설정하고 행성의 이름이 출력되도록 했다
+planet_name = "hiabc"
+result_age = solution(planet_name)
+print(result_age)
+
+4번
+def solution(r1, r2): #문자열 r1, r2를 매개변수로 하는 함수 solution을 만들었다
+
+    #두 원의 중심 간의 거리를 구한다
+    d = ((r1 - r2)**2)**0.5
+    
+    #두 원의 반지름의 합과 차를 구한다
+    r_sum = r1 + r2
+    r_diff = abs(r1 - r2)
+    
+    #두 원이 겹치지 않는 경우
+    if d > r_sum:
+        return 0
+
+    #작은 원이 큰 원 안에 완전히 포함되는 경우
+    elif d + r1 < r2:
+        return 0
+
+    # 두 원이 일부분만 겹치는 경우
+    else:
+        # 겹치는 부분에 있는 정수 좌표의 개수 계산
+        x_overlap = min(r_sum, d + r1) - r_diff
+        y_overlap = min(r_sum, d + r2) - r_diff
+        return int(x_overlap) * int(y_overlap)
+
+#예시로 3,5를 대입해보았다
+result = solution(3, 5)
+print(result)
+
+5번
+def solution(numbers): #number가 매개변수로 주어지는 solution 함수를 만들었다.
+    
+    sorted_numbers = sorted(map(str, numbers), key=lambda x: x*3, reverse=True)
+    
+    #map(str, numbers)는 numbers 리스트의 각 요소를 문자열로 변환한 새로운 리스트를 반환한다.
+    #key=lambda x:x*3은 각 숫자를 세 번 이어놓은 문자열을 기준으로 정렬한다 이를 통해서 큰 수를 만들 수 있는 조합을 찾을 수 있다
+    #reverse=True는 정렬 결과를 큰 수부터 나오게 한다
+    #앞에서 구한 것들을 sorted를 통해서 반환한다
+
+
+
+    #''.join(나머지)은 앞에서 얻은 값들을 연결해서 하나의 문자열로 만든다.
+    answer = ''.join(sorted_numbers)
+    
+    return answer
+
+#숫자를 대입해보았다.
+numbers = [8, 30, 17, 2, 23]
+result = solution(numbers)
+print(result)
